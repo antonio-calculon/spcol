@@ -11,6 +11,7 @@ namespace Sc
   {
   private:
     Map map;
+    ALLEGRO_DISPLAY *display; // shouldn't be here
   public:
     Game();
     void setup ();

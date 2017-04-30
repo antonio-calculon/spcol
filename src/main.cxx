@@ -12,6 +12,7 @@ int main ()
 {
   Game game;
   DEBUG("Hello!");
+  al_init();
   game.setup();
   return 0;
 }

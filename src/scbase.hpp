@@ -2,6 +2,7 @@
 #define _SCBASE_HPP_
 
 #include <stdio.h>
+#include <iso3d.hpp>
 
 
 #define DEBUG(v...) do {                            \
