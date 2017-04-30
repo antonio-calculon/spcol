@@ -1,0 +1,11 @@
+*~
+Makefile
+Makefile.in
+configure
+COPYING
+INSTALL
+aclocal.m4
+autom4te.cache
+depcomp
+install-sh
+missing
