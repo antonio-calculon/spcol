@@ -1,5 +1,6 @@
 //
 
+#include "private.hpp"
 #include "scgame.hpp"
 
 using namespace Sc;

@@ -1,5 +1,6 @@
 // main.cxx
 
+#include "private.hpp"
 #include "scbase.hpp"
 #include "scgame.hpp"
 
