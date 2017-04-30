@@ -10,10 +10,13 @@ namespace Sc
   {
   private:
     iso::Map map;
+    ALLEGRO_EVENT_QUEUE *event_queue;
+    ALLEGRO_TIMER *timer;
     ALLEGRO_DISPLAY *display; // shouldn't be here
   public:
     Game();
     void setup ();
+    void start ();
   };
 }
 

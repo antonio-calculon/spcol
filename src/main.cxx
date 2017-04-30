@@ -15,5 +15,6 @@ int main ()
   DEBUG("Hello!");
   al_init();
   game.setup();
+  game.start();
   return 0;
 }
