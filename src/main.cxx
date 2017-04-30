@@ -12,5 +12,6 @@ int main ()
 {
   Game game;
   DEBUG("Hello!");
+  game.setup();
   return 0;
 }

@@ -4,4 +4,5 @@ bin_PROGRAMS = spcol
 
 spcol_SOURCES = \
 	main.cxx \
-	scgame.cpp
+	scgame.cpp \
+	scmap.cpp
