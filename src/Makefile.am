@@ -8,5 +8,4 @@ spcol_LDADD = @ISO3D_LIBS@
 
 spcol_SOURCES = \
 	main.cxx \
-	scgame.cpp \
-	scmap.cpp
+	scgame.cpp
