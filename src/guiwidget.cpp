@@ -25,7 +25,7 @@ void Widget::set_parent ( Widget *parent )
 void Widget::queue_resize ()
 {
   Widget *w = this;
-  while (w)
+  while (w && w->visible())
     {
       w->flags |= WIDGET_FLAG_NEEDS_SIZE_REQUEST;
       if ((!w->parent) && (w->flags & WIDGET_FLAG_ROOT_WIDGET))

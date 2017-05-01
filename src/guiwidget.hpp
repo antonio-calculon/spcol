@@ -20,6 +20,7 @@ namespace gui
       WIDGET_FLAG_ROOT_WIDGET  = 1 << 0,
       WIDGET_FLAG_NEEDS_RESIZE = 1 << 1,
       WIDGET_FLAG_NEEDS_SIZE_REQUEST = 1 << 2,
+      WIDGET_FLAG_VISIBLE = 1 << 3,
     };
 
   struct _SizeRequest
@@ -53,6 +54,7 @@ namespace gui
     
   public:
     // flags
+    bool visible () { return flags & WIDGET_FLAG_VISIBLE; }
     bool needs_resize () { return this->flags & WIDGET_FLAG_NEEDS_RESIZE; }
     bool needs_size_request () { return this->flags & WIDGET_FLAG_NEEDS_SIZE_REQUEST; }
     //
