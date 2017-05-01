@@ -6,10 +6,6 @@
 
 #include "guiwidget.hpp"
 
-#include "guicontainer.hpp"
-
-#include "guibin.hpp"
-
 #include "guiwindow.hpp"
 
 #include "guilabel.hpp"

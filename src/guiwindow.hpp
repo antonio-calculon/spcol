@@ -3,7 +3,7 @@
 #ifndef _GUIWINDOW_HPP_
 #define _GUIWINDOW_HPP_
 
-#include "guibin.hpp"
+#include "guiwidget.hpp"
 
 // gui::Window
 //
@@ -11,7 +11,7 @@ namespace gui
 {
   class Display;
   
-  class Window : public Bin
+  class Window : public Widget
   {
   private:
     Display *display;

@@ -5,13 +5,16 @@
 
 #include "guibase.hpp"
 
+#include <vector>
+
 // gui::Widget
 //
 namespace gui
 {
+  class Widget;
   class Display;
   class Container;
-  
+
   typedef struct _SizeRequest SizeRequest;
   typedef struct _Allocation Allocation;
   
@@ -42,7 +45,9 @@ namespace gui
     friend Display; // [FIXME] really ??
     
   private:
+    unsigned int ref_count;
     int flags;
+    std::vector<Widget *> children;
     Widget *parent;
     SizeRequest request;
     int x;
@@ -51,6 +56,7 @@ namespace gui
     int height;
     
     void process_resize ();
+    void _show_all();
     
   public:
     // flags
@@ -59,13 +65,16 @@ namespace gui
     bool needs_size_request () { return this->flags & WIDGET_FLAG_NEEDS_SIZE_REQUEST; }
     //
     Widget ();
+    virtual ~Widget ();
+    Widget *ref ();
+    void unref ();
     void set_root_widget () { this->flags |= WIDGET_FLAG_ROOT_WIDGET; } // [FIXME] should be private
-    void set_parent ( Widget *parent ); // [FIXME] should be private
+    void add ( Widget *child );
+    void give ( Widget *child );
     void size_request ( SizeRequest *req );
     void size_allocate ( Allocation *alloc );
-    virtual void on_size_request ( SizeRequest *req ) = 0;
-    virtual void on_size_allocate ( Allocation *alloc ) = 0;
-    
+    virtual void on_size_request ( SizeRequest *req );
+    virtual void on_size_allocate ( Allocation *alloc );
     void queue_resize ();
     virtual void show ();
     virtual void show_all ();

@@ -12,7 +12,5 @@ spcol_SOURCES = \
 	gui.cpp \
 	guidisplay.cpp \
 	guiwidget.cpp \
-	guicontainer.cpp \
-	guibin.cpp \
 	guiwindow.cpp \
 	guilabel.cpp
