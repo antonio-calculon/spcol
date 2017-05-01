@@ -11,6 +11,8 @@ namespace gui
 {
   class Container : public Widget
   {
+  public:
+    virtual void add ( Widget *child ) = 0;
   };
 }
 
