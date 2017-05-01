@@ -16,12 +16,14 @@ void Game::setup ()
   this->event_queue = al_create_event_queue();
   this->timer = al_create_timer(1.0/10.0);
   al_register_event_source(this->event_queue, al_get_timer_event_source(this->timer));
-  this->map.setup();
-  iso::LayerMesh layer(256, 256);
-  this->map.add_layer(&layer);
+  this->map = new iso::Map();
+  this->map->setup();
+  iso::Layer *layer = new iso::LayerMesh(256, 256);
+  this->map->add_layer(layer);
+  this->main_view = new iso::View(this->map);
   // should not be here
-  this->display = al_create_display(640, 400);
-  al_register_event_source(this->event_queue, al_get_display_event_source(this->display));
+  this->al_display = al_create_display(640, 400);
+  al_register_event_source(this->event_queue, al_get_display_event_source(this->al_display));
 }
 
 void Game::start ()
@@ -39,10 +41,24 @@ void Game::start ()
           exit(0);
           break;
         case ALLEGRO_EVENT_TIMER:
-          DEBUG("timer!");
+          // DEBUG("timer!");
+          this->update();
+          this->display();
           break;
         default:
           DEBUG("unknown event: %d", event.type);
         }
     }
+}
+
+void Game::update ()
+{
+  // DEBUG("update...");
+}
+
+void Game::display ()
+{
+  al_set_target_backbuffer(this->al_display);
+  this->main_view->display();
+  void al_flip_display();
 }
