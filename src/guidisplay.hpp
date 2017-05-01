@@ -30,6 +30,7 @@ namespace gui
     std::vector<Window *> root_windows;
     
     void attach_root_window ( Window *window );
+    bool process_resize ();
     
   public:
     Display ( ALLEGRO_DISPLAY *al_display );

@@ -2,6 +2,7 @@
 
 #include "private.hpp"
 #include "guidisplay.hpp"
+#include "guiwindow.hpp"
 
 using namespace gui;
 
@@ -48,6 +49,22 @@ void Display::register_event_source ( ALLEGRO_EVENT_SOURCE *source )
 }
 
 
+bool Display::process_resize ()
+{
+  bool r = false;
+  auto end = this->root_windows.end();
+  for (auto it=this->root_windows.begin(); it != end; it++)
+    {
+      if ((*it)->needs_resize())
+        {
+          (*it)->process_resize();
+          r = true;
+        }
+    }
+  return r;
+}
+
+
 
 void Display::run ()
 {
@@ -57,6 +74,9 @@ void Display::run ()
       if (al_get_next_event(this->event_queue, &event))
         {
           this->event_handler(this, &event, this->event_handler_data);
+        }
+      else if (this->process_resize())
+        {
         }
       else
         {

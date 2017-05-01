@@ -16,6 +16,8 @@ namespace gui
     
   public:
     Bin ();
+    virtual void on_size_request ( SizeRequest *req );
+    virtual void on_size_allocate ( Allocation *alloc );
     void add ( Widget *child );
   };
 }

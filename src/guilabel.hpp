@@ -17,6 +17,8 @@ namespace gui
     
   public:
     Label ( const char *text );
+    virtual void on_size_request ( SizeRequest *req );
+    virtual void on_size_allocate ( Allocation *alloc );
   };
 }
 
