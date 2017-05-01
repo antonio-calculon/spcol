@@ -12,6 +12,7 @@
 namespace gui
 {
   class Display;
+  class Window;
   
   typedef void (* EventHandler) ( Display *display,
                                   ALLEGRO_EVENT *event,
@@ -19,11 +20,16 @@ namespace gui
   
   class Display
   {
+    friend Window; // [FIXME] only for attach_root_window
+    
   private:
     ALLEGRO_DISPLAY *al_display;
     ALLEGRO_EVENT_QUEUE *event_queue;
     EventHandler event_handler;
     void *event_handler_data;
+    std::vector<Window *> root_windows;
+    
+    void attach_root_window ( Window *window );
     
   public:
     Display ( ALLEGRO_DISPLAY *al_display );

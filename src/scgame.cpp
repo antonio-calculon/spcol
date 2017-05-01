@@ -27,10 +27,17 @@ void Game::setup ()
   this->main_view = new iso::View(this->map);
 }
 
+void Game::setup_gui ()
+{
+  this->side_panel = new Window(this->display);
+  this->side_panel->show_all();
+}
+
 void Game::start ( Display *display )
 {
   this->display = display;
   this->display->set_event_handler((EventHandler) _event_handler, this);
+  this->setup_gui();
   this->timer = al_create_timer(1.0/10.0);
   this->display->register_event_source(al_get_timer_event_source(this->timer));
   al_start_timer(this->timer);

@@ -9,8 +9,15 @@
 //
 namespace gui
 {
+  class Display;
+  
   class Window : public Bin
   {
+  private:
+    Display *display;
+
+  public:
+    Window ( Display *display );
   };
 }
 

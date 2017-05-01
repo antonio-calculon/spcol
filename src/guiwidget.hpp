@@ -11,6 +11,9 @@ namespace gui
 {
   class Widget
   {
+  public:
+    virtual void show ();
+    virtual void show_all ();
   };
 }
 

@@ -5,6 +5,8 @@
 #include "scbase.hpp"
 #include "gui.hpp"
 
+using namespace gui;
+
 namespace Sc
 {
   class Game
@@ -14,6 +16,9 @@ namespace Sc
     iso::View *main_view;
     gui::Display *display;
     ALLEGRO_TIMER *timer;
+    void setup_gui();
+    // gui
+    Window *side_panel;
   public:
     Game();
     void setup ();

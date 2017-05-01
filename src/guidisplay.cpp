@@ -1,5 +1,6 @@
 // guidisplay.hpp
 
+#include "private.hpp"
 #include "guidisplay.hpp"
 
 using namespace gui;
@@ -20,6 +21,14 @@ Display::Display ( ALLEGRO_DISPLAY *al_display )
   al_register_event_source(this->event_queue, al_get_display_event_source(al_display));
   this->event_handler = _event_handler;
   this->event_handler_data = NULL;
+}
+
+
+
+void Display::attach_root_window ( Window *window )
+{
+  DEBUG("new root window");
+  this->root_windows.push_back(window);
 }
 
 
