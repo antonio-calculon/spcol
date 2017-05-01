@@ -13,7 +13,7 @@
 
 #define DEBUG(v...) LOG("", v)
 
-#define ERROR(v...) ERROR("ERROR:", v)
+#define ERROR(v...) LOG("ERROR:", v)
 
 #define ASSERT(expr) do {                       \
     if (!(expr)) {                              \
