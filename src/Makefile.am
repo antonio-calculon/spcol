@@ -10,6 +10,7 @@ spcol_SOURCES = \
 	main.cxx \
 	scgame.cpp \
 	gui.cpp \
+	guiobject.cpp \
 	guidisplay.cpp \
 	guiwidget.cpp \
 	guiwindow.cpp \

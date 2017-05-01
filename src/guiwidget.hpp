@@ -3,7 +3,7 @@
 #ifndef _GUIWIDGET_HPP_
 #define _GUIWIDGET_HPP_
 
-#include "guibase.hpp"
+#include "guiobject.hpp"
 
 #include <vector>
 
@@ -40,12 +40,11 @@ namespace gui
     int height;
   };
 
-  class Widget
+  class Widget : public Object
   {
     friend Display; // [FIXME] really ??
     
   private:
-    unsigned int ref_count;
     int flags;
     std::vector<Widget *> children;
     Widget *parent;
@@ -65,9 +64,6 @@ namespace gui
     bool needs_size_request () { return this->flags & WIDGET_FLAG_NEEDS_SIZE_REQUEST; }
     //
     Widget ();
-    virtual ~Widget ();
-    Widget *ref ();
-    void unref ();
     void set_root_widget () { this->flags |= WIDGET_FLAG_ROOT_WIDGET; } // [FIXME] should be private
     void add ( Widget *child );
     void give ( Widget *child );

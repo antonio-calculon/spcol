@@ -13,31 +13,10 @@ Widget::Widget ()
 }
 
 
-Widget::~Widget ()
-{
-  DEBUG("widget destroyed");
-}
-
-
-Widget *Widget::ref ()
-{
-  ref_count++;
-  return this;
-}
-
-
-void Widget::unref ()
-{
-  if ((--ref_count) == 0)
-    delete this;
-}
-
-
-
 void Widget::add ( Widget *child )
 {
   ASSERT(!child->parent);
-  children.push_back(child->ref());
+  children.push_back((Widget *)child->ref());
   child->parent = this;
   child->queue_resize();
 }
