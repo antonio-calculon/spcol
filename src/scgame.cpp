@@ -7,6 +7,10 @@
 using namespace Sc;
 using namespace gui;
 
+static void _event_handler ( Display *display,
+                             ALLEGRO_EVENT *event,
+                             Game *game );
+
 Game::Game()
 {
   DEBUG("new game");
@@ -26,17 +30,28 @@ void Game::setup ()
 void Game::start ( Display *display )
 {
   this->display = display;
+  this->display->set_event_handler((EventHandler) _event_handler, this);
+  this->timer = al_create_timer(1.0/10.0);
+  this->display->register_event_source(al_get_timer_event_source(this->timer));
+  al_start_timer(this->timer);
   this->display->run();
 }
 
 void Game::update ()
 {
-  // DEBUG("update...");
+  DEBUG("update...");
 }
 
-void Game::render ()
+static void _event_handler ( Display *display,
+                             ALLEGRO_EVENT *event,
+                             Game *game )
 {
-  // al_set_target_backbuffer(this->al_display);
-  // this->main_view->display();
-  // void al_flip_display();
+  if (event->type == ALLEGRO_EVENT_TIMER && event->timer.source == game->get_timer())
+    {
+      game->update();
+    }
+  else
+    {
+      display->process_event(event);
+    }
 }

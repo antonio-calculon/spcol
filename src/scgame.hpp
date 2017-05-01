@@ -19,7 +19,7 @@ namespace Sc
     void setup ();
     void start ( gui::Display *display );
     void update ();
-    void render ();
+    ALLEGRO_TIMER *get_timer() { return this->timer; } // should be removed
   };
 }
 
