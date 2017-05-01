@@ -8,4 +8,11 @@ spcol_LDADD = @ISO3D_LIBS@
 
 spcol_SOURCES = \
 	main.cxx \
-	scgame.cpp
+	scgame.cpp \
+	gui.cpp \
+	guidisplay.cpp \
+	guiwidget.cpp \
+	guicontainer.cpp \
+	guibin.cpp \
+	guiwindow.cpp \
+	guilabel.cpp

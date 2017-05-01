@@ -2,12 +2,15 @@
 
 #include "private.hpp"
 #include "scgame.hpp"
+#include "gui.hpp"
 
 using namespace Sc;
+using namespace gui;
 
 Game::Game()
 {
   DEBUG("new game");
+  this->_display = NULL;
 }
 
 void Game::setup ()
@@ -26,10 +29,23 @@ void Game::setup ()
   al_register_event_source(this->event_queue, al_get_display_event_source(this->al_display));
 }
 
-void Game::start ()
+// Window *create_gui ()
+// {
+//   // Window *win = new Window();
+//   // win.add(box);
+//   // Box *box = new Box(Box.VERTICAL);
+//   // Label *label = new Label("Hello!");
+//   // box.add(label);
+//   // return win;
+//   return NULL;
+// }
+
+void Game::start ( Display *display )
 {
+  this->_display = display;
   DEBUG("starting game");
   al_start_timer(this->timer);
+  // Window *win = create_gui();
   while (1)
     {
       ALLEGRO_EVENT event;

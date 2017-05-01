@@ -3,6 +3,7 @@
 #define _SCGAME_HPP_
 
 #include "scbase.hpp"
+#include "gui.hpp"
 
 namespace Sc
 {
@@ -14,10 +15,11 @@ namespace Sc
     ALLEGRO_EVENT_QUEUE *event_queue;
     ALLEGRO_TIMER *timer;
     ALLEGRO_DISPLAY *al_display; // shouldn't be here
+    gui::Display *_display;
   public:
     Game();
     void setup ();
-    void start ();
+    void start ( gui::Display *display );
     void update ();
     void display ();
   };
