@@ -29,7 +29,7 @@ Display::Display ( ALLEGRO_DISPLAY *al_display )
 void Display::attach_root_window ( Window *window )
 {
   DEBUG("new root window");
-  this->root_windows.push_back((Window *) window->ref());
+  this->root_windows.push_back(window);
 }
 
 

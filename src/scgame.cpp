@@ -31,8 +31,7 @@ void Game::setup_gui ()
 {
   this->side_panel = new Window(this->display);
   Label *label = new Label("Hello!");
-  this->side_panel->give(label);
-  // this->side_panel->add2(labelp);
+  this->side_panel->add(label);
   this->side_panel->show_all();
 }
 

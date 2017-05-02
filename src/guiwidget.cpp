@@ -13,20 +13,11 @@ Widget::Widget ()
 }
 
 
-void Widget::add ( Widget *child )
+
+void Widget::set_parent ( Widget *parent )
 {
-  ASSERT(!child->parent);
-  children.push_back((Widget *)child->ref());
-  child->parent = this;
-  child->queue_resize();
-}
-
-
-
-void Widget::give ( Widget *child )
-{
-  add(child);
-  child->unref();
+  ASSERT(!this->parent);
+  this->parent = parent; // [FIXME] weakref
 }
 
 
@@ -61,26 +52,9 @@ void Widget::size_request ( SizeRequest *req )
 
 
 
-void Widget::on_size_request ( SizeRequest *req )
-{
-  auto end = children.end();
-  for (auto it=children.begin(); it != end; it++)
-    {
-      (*it)->size_request(req);
-    }
-}
-
-
-
 void Widget::size_allocate ( Allocation *alloc )
 {
   on_size_allocate(alloc);
-}
-
-
-
-void Widget::on_size_allocate ( Allocation *alloc )
-{
 }
 
 
@@ -103,24 +77,9 @@ void Widget::process_resize ()
 
 void Widget::show ()
 {
-  flags |= WIDGET_FLAG_VISIBLE;
-  queue_resize();
-}
-
-
-void Widget::_show_all ()
-{
-  flags |= (WIDGET_FLAG_VISIBLE | WIDGET_FLAG_NEEDS_SIZE_REQUEST);
-  auto end = children.end();
-  for (auto it=children.begin(); it != end; it++)
-    {
-      (*it)->_show_all();
-    }
 }
 
 
 void Widget::show_all ()
 {
-  _show_all();
-  show();
 }
