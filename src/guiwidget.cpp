@@ -2,6 +2,7 @@
 
 #include "private.hpp"
 #include "guiwidget.hpp"
+#include "guidisplay.hpp"
 
 using namespace gui;
 
@@ -17,7 +18,25 @@ Widget::Widget ()
 void Widget::set_parent ( Widget *parent )
 {
   ASSERT(!this->parent);
+  ASSERT(!root_widget());
   this->parent = parent; // [FIXME] weakref
+}
+
+
+Widget *Widget::get_root ()
+{
+  Widget *w = this;
+  while (w->parent)
+    w = w->parent;
+  return w->root_widget() ? w : NULL;
+}
+
+
+
+Display *Widget::get_display ()
+{
+  Widget *root = get_root();
+  return root ? root->get_display() : NULL;
 }
 
 
@@ -27,9 +46,14 @@ void Widget::queue_resize ()
   Widget *w = this;
   while (w && w->visible())
     {
-      w->flags |= WIDGET_FLAG_NEEDS_SIZE_REQUEST;
+      w->flags |= WIDGET_FLAG_NEEDS_RESIZE;
       if ((!w->parent) && (w->flags & WIDGET_FLAG_ROOT_WIDGET))
-        w->flags |= WIDGET_FLAG_NEEDS_RESIZE;
+        {
+          Display *d = w->get_display();
+          if (d)
+            d->queue_resize(w);
+          break;
+        }
       w = w->parent;
     }
 }
@@ -38,11 +62,11 @@ void Widget::queue_resize ()
 
 void Widget::size_request ( SizeRequest *req )
 {
-  if (needs_size_request())
+  if (needs_resize())
     {
       on_size_request(req);
       request = *req;
-      flags &= ~WIDGET_FLAG_NEEDS_SIZE_REQUEST;
+      flags &= ~WIDGET_FLAG_NEEDS_RESIZE;
     }
   else
     {

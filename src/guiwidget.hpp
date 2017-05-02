@@ -19,7 +19,6 @@ namespace gui
     {
       WIDGET_FLAG_ROOT_WIDGET  = 1 << 0,
       WIDGET_FLAG_NEEDS_RESIZE = 1 << 1,
-      WIDGET_FLAG_NEEDS_SIZE_REQUEST = 1 << 2,
       WIDGET_FLAG_VISIBLE = 1 << 3,
     };
 
@@ -54,12 +53,15 @@ namespace gui
     
   public:
     // flags
+    bool destroyed () { return false; } // [TODO]
     bool visible () { return flags & WIDGET_FLAG_VISIBLE; }
     bool needs_resize () { return this->flags & WIDGET_FLAG_NEEDS_RESIZE; }
-    bool needs_size_request () { return this->flags & WIDGET_FLAG_NEEDS_SIZE_REQUEST; }
+    bool root_widget () { return this->flags & WIDGET_FLAG_ROOT_WIDGET; }
     //
     Widget ();
     void set_root_widget () { this->flags |= WIDGET_FLAG_ROOT_WIDGET; } // [FIXME] should be private
+    Widget *get_root ();
+    virtual Display *get_display ();
     void set_parent ( Widget *parent ); // [FIXME] should be private
     void size_request ( SizeRequest *req );
     void size_allocate ( Allocation *alloc );

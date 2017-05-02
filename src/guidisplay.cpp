@@ -49,19 +49,18 @@ void Display::register_event_source ( ALLEGRO_EVENT_SOURCE *source )
 }
 
 
-bool Display::process_resize ()
+void Display::process_resize ()
 {
-  bool r = false;
-  auto end = this->root_windows.end();
-  for (auto it=this->root_windows.begin(); it != end; it++)
+  DEBUG("process resize");
+  std::unordered_set<Widget *> queue;
+  resize_queue.swap(queue);
+  auto end = queue.end();
+  for (auto it=queue.begin(); it != end; it++)
     {
-      if ((*it)->needs_resize())
-        {
-          (*it)->process_resize();
-          r = true;
-        }
+      if (!(*it)->destroyed())
+        (*it)->process_resize();
+      (*it)->unref();
     }
-  return r;
 }
 
 
@@ -75,8 +74,9 @@ void Display::run ()
         {
           this->event_handler(this, &event, this->event_handler_data);
         }
-      else if (this->process_resize())
+      else if (!resize_queue.empty())
         {
+          process_resize();
         }
       else
         {
@@ -97,4 +97,11 @@ void Display::process_event ( ALLEGRO_EVENT *event )
     default:
       DEBUG("unknown event: %d", event->type);
     }
+}
+
+
+
+void Display::queue_resize ( Widget *widget )
+{
+  resize_queue.insert((Widget *) widget->ref());
 }
