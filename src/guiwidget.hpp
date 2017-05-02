@@ -5,15 +5,21 @@
 
 #include "guiobject.hpp"
 
+#include <iterator>
+
 // gui::Widget
 //
 namespace gui
 {
+  class Widget;
   class Display;
   class Container;
   
   typedef struct _SizeRequest SizeRequest;
   typedef struct _Allocation Allocation;
+
+  typedef bool (* ForeachFunc) ( Widget *widget,
+                                 void *data );
   
   enum
     {
@@ -50,6 +56,8 @@ namespace gui
     int height;
     
     void process_resize ();
+    static bool _show_all ( Widget *widget,
+                            void *data );
     
   public:
     // flags
@@ -71,6 +79,17 @@ namespace gui
     void queue_resize ();
     virtual void show ();
     virtual void show_all ();
+    // for containers
+    virtual bool foreach ( ForeachFunc func,
+                           void *data )
+    {
+      return true;
+    }
+    virtual bool forall ( ForeachFunc func,
+                          void *data )
+    {
+      return foreach(func, data);
+    }
   };
 }
 

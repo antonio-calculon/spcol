@@ -44,12 +44,15 @@ Display *Widget::get_display ()
 void Widget::queue_resize ()
 {
   Widget *w = this;
+  DEBUG("queue_resize: %p", this);
   while (w && w->visible())
     {
       w->flags |= WIDGET_FLAG_NEEDS_RESIZE;
+      DEBUG(" -> %p (%p, %d)", w, w->parent, w->root_widget());
       if ((!w->parent) && (w->flags & WIDGET_FLAG_ROOT_WIDGET))
         {
           Display *d = w->get_display();
+          DEBUG("display: %p", d);
           if (d)
             d->queue_resize(w);
           break;
@@ -104,6 +107,23 @@ void Widget::show ()
 }
 
 
+bool Widget::_show_all ( Widget *widget,
+                         void *data )
+{
+  DEBUG("show: %p", widget);
+  bool r = widget->forall(Widget::_show_all, data);
+  if (!widget->visible())
+    {
+      widget->flags |= WIDGET_FLAG_VISIBLE;
+      widget->queue_resize();
+    }
+  return r;
+}
+
+
 void Widget::show_all ()
 {
+  DEBUG("show_all: %p", this);
+  Widget::_show_all(this, NULL);
+  // forall(Widget::_show_all, NULL);
 }

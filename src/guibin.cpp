@@ -40,7 +40,23 @@ void Bin::add ( Widget *child )
 {
   DEBUG("Bin::add()");
   ASSERT(!this->child);
-  this->child = child;
+  this->child = (Bin *) child->ref();
   child->set_parent(this);
   child->queue_resize();
+}
+
+
+
+bool Bin::foreach ( ForeachFunc func,
+                    void *data )
+{
+  DEBUG("Bin::foreach()");
+  if (child)
+    {
+      return func(child, data);
+    }
+  else
+    {
+      return true;
+    }
 }

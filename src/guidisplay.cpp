@@ -103,5 +103,6 @@ void Display::process_event ( ALLEGRO_EVENT *event )
 
 void Display::queue_resize ( Widget *widget )
 {
+  DEBUG("queue resize: %p", widget);
   resize_queue.insert((Widget *) widget->ref());
 }

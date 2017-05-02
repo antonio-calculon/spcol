@@ -18,6 +18,7 @@ namespace gui
 
   public:
     Window ( Display *display );
+    virtual Display *get_display ();
   };
 }
 

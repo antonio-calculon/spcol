@@ -15,3 +15,10 @@ Window::Window ( Display *display )
   this->display = display;
   display->attach_root_window(this);
 }
+
+
+
+Display *Window::get_display ()
+{
+  return display;
+}
